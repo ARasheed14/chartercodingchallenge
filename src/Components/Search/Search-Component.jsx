@@ -30,7 +30,6 @@ class Search extends Component {
     componentDidMount() {
         api.getRestaraunts().then((res) => {
           const retrievedList = res;
-          console.log(retrievedList);
           const alphabeticallySortedList = this.alphabeticalSort(retrievedList);
           const genreList = this.getGenreList(retrievedList);
           const stateList = this.getStateList(retrievedList);
@@ -94,15 +93,12 @@ class Search extends Component {
       activateFilter = (filter, filterBy) => {
         if (filter === this.genreText && !this.state.isGenreFilterActive) {
           const test = this.filterCheck(this.state.searchedList);
-          console.log('....', test);
           this.setState({
             isGenreFilterActive: true,
             filterByGenre: filterBy
           })
         }
         if (filter === this.stateText && !this.state.isStateFilterActive) {
-          const test = this.filterCheck(this.state.searchedList);
-          console.log('....', test);
           this.setState({
             isStateFilterActive: true ,
             filterByState: filterBy
@@ -112,8 +108,6 @@ class Search extends Component {
 
       disableFilters = (filter) => {
         if (filter === this.genreText && this.state.isGenreFilterActive) {
-          // const test = this.filterCheck(this.state.searchedList);
-          console.log('....');
           this.setState((prevState) => ({
             isGenreFilterActive: false,
             filteredList: prevState.searchedList,
@@ -121,8 +115,6 @@ class Search extends Component {
           }))
         }
         if (filter === this.stateText) {
-          // const test = this.filterCheck(this.state.searchedList);
-          console.log('....');
           this.setState((prevState) => ({
             isStateFilterActive: false,
             filteredList: prevState.searchedList,
@@ -139,7 +131,6 @@ class Search extends Component {
         if (filterValue === Constants.defaultText) {
           this.disableFilters(this.genreText);
         }
-        console.log(event.target.value);
       }
       
       handleStateFilterChange = (event) => {
@@ -150,7 +141,6 @@ class Search extends Component {
         if (filterValue === Constants.defaultText) {
           this.disableFilters(this.stateText);
         }
-        console.log(event.target.value);
       }
 
   render() {
@@ -164,7 +154,7 @@ class Search extends Component {
           <input placeholder={Constants.inputPlaceHolder} type="text" onChange={this.handleChange} />
             <div>
             <select defaultValue={this.state.defaultValue} onChange={this.handleGenreFilterChange}>
-    <option value={Constants.allText} disabled>{Constants.genreBigText}</option>
+              <option value={Constants.allText} disabled>{Constants.genreBigText}</option>
               <option value={Constants.defaultText}>{Constants.allText}</option>
                 {
                   genreList.map((genre, key) => {
