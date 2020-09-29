@@ -4,6 +4,7 @@
     "module": "esnext",
     "outDir": "build",
     "rootDir": "src",
+    "downlevelIteration": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
