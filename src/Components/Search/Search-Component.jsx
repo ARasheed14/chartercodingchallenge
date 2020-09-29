@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Search-Component.css';
 import api from '../../Api/Api';
 import Utils from '../../Utils/Utils';
+import Constants from '../../Constants/Constants';
 
 class Search extends Component {
   genreText = 'genre';
@@ -21,7 +22,7 @@ class Search extends Component {
           filterByGenre: '',
           genreSelected: '',
           stateSelected: '',
-          defaultValue: 'All',
+          defaultValue: Constants.allText,
           searchedList: []
         }
       }
@@ -132,10 +133,10 @@ class Search extends Component {
 
       handleGenreFilterChange = (event) => {
         const filterValue = event.target.value;
-        if (filterValue !== 'Default') {
+        if (filterValue !== Constants.defaultText) {
           this.activateFilter(this.genreText, filterValue)
         }
-        if (filterValue === 'Default') {
+        if (filterValue === Constants.defaultText) {
           this.disableFilters(this.genreText);
         }
         console.log(event.target.value);
@@ -143,10 +144,10 @@ class Search extends Component {
       
       handleStateFilterChange = (event) => {
         const filterValue = event.target.value;
-        if (filterValue !== 'Default') {
+        if (filterValue !== Constants.defaultText) {
           this.activateFilter(this.stateText, filterValue)
         }
-        if (filterValue === 'Default') {
+        if (filterValue === Constants.defaultText) {
           this.disableFilters(this.stateText);
         }
         console.log(event.target.value);
@@ -160,11 +161,11 @@ class Search extends Component {
     return (
         <div>
           <div className="top-row">
-          <input placeholder="Enter your search" type="text" onChange={this.handleChange} />
+          <input placeholder={Constants.inputPlaceHolder} type="text" onChange={this.handleChange} />
             <div>
             <select defaultValue={this.state.defaultValue} onChange={this.handleGenreFilterChange}>
-              <option value="All" disabled>Genre</option>
-              <option value="Default">All</option>
+    <option value={Constants.allText} disabled>{Constants.genreBigText}</option>
+              <option value={Constants.defaultText}>{Constants.allText}</option>
                 {
                   genreList.map((genre, key) => {
                   return <option key={key} value={genre.value}>{genre}</option>;
@@ -174,8 +175,8 @@ class Search extends Component {
             </div>
             <div>
               <select defaultValue={this.state.defaultValue} onChange={this.handleStateFilterChange}>
-                <option value="All" disabled>State</option>
-                <option value="Default">All</option>
+              <option value={Constants.allText} disabled>{Constants.stateBigText}</option>
+              <option value={Constants.defaultText}>{Constants.allText}</option>
                 {
                   stateList.map((state, key) => {
                   return <option key={key} value={state.value}>{state}</option>;
@@ -191,7 +192,7 @@ class Search extends Component {
             </ul>
             ) : (
               <ul className="list">
-                <li>No results were found</li>
+                <li>{Constants.noResultsFound}</li>
               </ul>
             )
           }
