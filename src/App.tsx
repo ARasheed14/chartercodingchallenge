@@ -3,10 +3,6 @@ import './App.css';
 import Search from './Components/Search/Search-Component';
 
 class App extends Component {
-  constructor(props: any){
-    super(props);
-  }
-
   render() {
     return (
       <div className="App">

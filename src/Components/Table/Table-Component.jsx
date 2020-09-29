@@ -5,7 +5,7 @@ import Constants from '../../Constants/Constants';
 const Table = (props) => {
   const restaurants = props.restaurants;
   const listItems = restaurants.map((restaurant) =>
-<li key={restaurant.id}>{restaurant.name} | {restaurant.city} | {restaurant.state} | {restaurant.telephone} | {restaurant.genre}</li>
+<li className="box" key={restaurant.id}>{restaurant.name} | {restaurant.city} | {restaurant.state} | {restaurant.telephone} | {restaurant.genre}</li>
   );
   return (
     <div>

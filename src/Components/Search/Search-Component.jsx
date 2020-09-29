@@ -60,7 +60,9 @@ class Search extends Component {
 
       search = (searchText, list) => {
         const searchList = list.filter(restuaraunt => 
-          restuaraunt.name.toLowerCase().includes(searchText.toLowerCase()) || restuaraunt.city.toLowerCase().includes(searchText.toLowerCase()) || restuaraunt.genre.toLowerCase().includes(searchText.toLowerCase()));
+          restuaraunt.name.toLowerCase().includes(searchText.toLowerCase()) 
+          || restuaraunt.city.toLowerCase().includes(searchText.toLowerCase()) 
+          || restuaraunt.genre.toLowerCase().includes(searchText.toLowerCase()));
         const newFilteredList = this.filterCheck(searchList);
         this.setState({
           filteredList: newFilteredList,
@@ -93,7 +95,6 @@ class Search extends Component {
 
       activateFilter = (filter, filterBy) => {
         if (filter === this.genreText && !this.state.isGenreFilterActive) {
-          const test = this.filterCheck(this.state.searchedList);
           this.setState({
             isGenreFilterActive: true,
             filterByGenre: filterBy
