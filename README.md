@@ -8,6 +8,6 @@ run git clone https://github.com/ARasheed14/chartercodingchallenge.git to pull d
 
 cd into the project folder.
 
-run npm install to install all depencies
+run npm install or yarn install to install all depencies
 
-run npm start to spin up a web browser to view the applicaiton
+run npm start or yarn start to spin up a web browser to view the applicaiton
