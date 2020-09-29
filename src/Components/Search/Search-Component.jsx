@@ -3,6 +3,7 @@ import './Search-Component.css';
 import api from '../../Api/Api';
 import Utils from '../../Utils/Utils';
 import Constants from '../../Constants/Constants';
+import TableComponent from '../Table/Table-Component';
 
 class Search extends Component {
   genreText = 'genre';
@@ -145,9 +146,6 @@ class Search extends Component {
 
   render() {
     const { filteredList, genreList, stateList } = this.state;
-    const listItems = filteredList.map((item) =>
-        <li key={item.id}>{item.name} | {item.genre} | {item.state}</li>
-    );
     return (
         <div>
           <div className="top-row">
@@ -175,18 +173,7 @@ class Search extends Component {
               </select>
             </div>
           </div>
-          <div>
-          {filteredList.length > 0 ? (
-            <ul className="list">
-              {listItems}
-            </ul>
-            ) : (
-              <ul className="list">
-                <li>{Constants.noResultsFound}</li>
-              </ul>
-            )
-          }
-          </div>
+            <TableComponent restaurants={filteredList}></TableComponent>
         </div>
       );
   }
