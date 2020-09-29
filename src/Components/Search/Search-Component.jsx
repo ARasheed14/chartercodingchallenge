@@ -59,8 +59,8 @@ class Search extends Component {
       }
 
       search = (searchText, list) => {
-        const searchList = list.filter(s => 
-          s.name.toLowerCase().includes(searchText.toLowerCase()));
+        const searchList = list.filter(restuaraunt => 
+          restuaraunt.name.toLowerCase().includes(searchText.toLowerCase()) || restuaraunt.city.toLowerCase().includes(searchText.toLowerCase()) || restuaraunt.genre.toLowerCase().includes(searchText.toLowerCase()));
         const newFilteredList = this.filterCheck(searchList);
         this.setState({
           filteredList: newFilteredList,

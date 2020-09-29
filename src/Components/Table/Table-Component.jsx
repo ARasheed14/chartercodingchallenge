@@ -4,8 +4,8 @@ import Constants from '../../Constants/Constants';
 
 const Table = (props) => {
   const restaurants = props.restaurants;
-  const listItems = restaurants.map((item) =>
-    <li key={item.id}>{item.name} | {item.genre} | {item.state}</li>
+  const listItems = restaurants.map((restaurant) =>
+<li key={restaurant.id}>{restaurant.name} | {restaurant.city} | {restaurant.state} | {restaurant.telephone} | {restaurant.genre}</li>
   );
   return (
     <div>
