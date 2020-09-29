@@ -1,0 +1,10 @@
+.top-row {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    padding-left: 40px;
+}
+
+.list {
+    list-style-type: none;
+}
