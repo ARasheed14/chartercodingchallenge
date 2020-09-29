@@ -33,6 +33,7 @@ class Search extends Component {
           const stateList = this.getStateList(retrievedList);
           this.setState({
             completeResturauntList: alphabeticallySortedList,
+            filteredList: alphabeticallySortedList,
             genreList,
             stateList
           })
@@ -53,15 +54,48 @@ class Search extends Component {
         return stateList;
       }
 
+      search = (searchText, list) => {
+        const searchList = list.filter(s => 
+          s.name.toLowerCase().includes(searchText.toLowerCase()));
+        const newFilteredList = this.filterCheck(searchList);
+        this.setState({
+          filteredList: newFilteredList,
+          searchedList: searchList
+        });
+      }
+
+      handleChange = (event) => {
+        this.setState({inputValue: event.target.value});
+        this.search(event.target.value, this.state.completeResturauntList);
+      }
+
+      filterCheck = (list) => {
+        if (this.state.isStateFilterActive === true) {
+          return list.filter(restuaraunt => 
+            restuaraunt.state.toLowerCase().includes(this.state.filterByState.toLowerCase()));
+        }
+        if (this.state.isGenreFilterActive) {
+          return list.filter(restuaraunt => 
+            restuaraunt.genre.toLowerCase().includes(this.state.filterByGenre.toLowerCase()));
+        }
+        if (this.state.isGenreFilterActive && this.state.isStateFilterActive) {
+          return list.filter(restuaraunt => 
+            restuaraunt.state.toLowerCase().includes(this.state.filterByState.toLowerCase()) && restuaraunt.genre.toLowerCase().includes(this.state.filterByGenre.toLowerCase()));
+        } 
+        if (!this.state.isGenreFilterActive && !this.state.isStateFilterActive) {
+          return list;
+        }
+      }
+
   render() {
     const { filteredList, genreList, stateList } = this.state;
-    const listItems = this.state.completeResturauntList.map((item) =>
+    const listItems = filteredList.map((item) =>
         <li key={item.id}>{item.name} | {item.genre} | {item.state}</li>
     );
     return (
         <div>
           <div className="top-row">
-          <input placeholder="Enter your search" type="text" />
+          <input placeholder="Enter your search" type="text" onChange={this.handleChange} />
             <div>
             <select defaultValue={this.state.defaultValue} onChange={this.handleGenreFilterChange}>
               <option value="All" disabled>Genre</option>
@@ -86,7 +120,7 @@ class Search extends Component {
             </div>
           </div>
           <div>
-          {listItems.length > 0 ? (
+          {filteredList.length > 0 ? (
             <ul className="list">
               {listItems}
             </ul>
