@@ -4,6 +4,8 @@ import api from '../../Api/Api';
 import Utils from '../../Utils/Utils';
 
 class Search extends Component {
+  genreText = 'genre';
+  stateText = 'state';
     constructor(props){
         super(props);
         this.state = {
@@ -34,6 +36,7 @@ class Search extends Component {
           this.setState({
             completeResturauntList: alphabeticallySortedList,
             filteredList: alphabeticallySortedList,
+            searchedList: alphabeticallySortedList,
             genreList,
             stateList
           })
@@ -87,6 +90,68 @@ class Search extends Component {
         }
       }
 
+      activateFilter = (filter, filterBy) => {
+        if (filter === this.genreText && !this.state.isGenreFilterActive) {
+          const test = this.filterCheck(this.state.searchedList);
+          console.log('....', test);
+          this.setState({
+            isGenreFilterActive: true,
+            filterByGenre: filterBy
+          })
+        }
+        if (filter === this.stateText && !this.state.isStateFilterActive) {
+          const test = this.filterCheck(this.state.searchedList);
+          console.log('....', test);
+          this.setState({
+            isStateFilterActive: true ,
+            filterByState: filterBy
+          })
+        }
+      }
+
+      disableFilters = (filter) => {
+        if (filter === this.genreText && this.state.isGenreFilterActive) {
+          // const test = this.filterCheck(this.state.searchedList);
+          console.log('....');
+          this.setState((prevState) => ({
+            isGenreFilterActive: false,
+            filteredList: prevState.searchedList,
+            filterByGenre: ''
+          }))
+        }
+        if (filter === this.stateText) {
+          // const test = this.filterCheck(this.state.searchedList);
+          console.log('....');
+          this.setState((prevState) => ({
+            isStateFilterActive: false,
+            filteredList: prevState.searchedList,
+            filterByState: ''
+          }))
+        }
+      }
+
+      handleGenreFilterChange = (event) => {
+        const filterValue = event.target.value;
+        if (filterValue !== 'Default') {
+          this.activateFilter(this.genreText, filterValue)
+        }
+        if (filterValue === 'Default') {
+          this.disableFilters(this.genreText);
+        }
+        console.log(event.target.value);
+      }
+      
+      handleStateFilterChange = (event) => {
+        const filterValue = event.target.value;
+        if (filterValue !== 'Default') {
+          this.activateFilter(this.stateText, filterValue)
+        }
+        if (filterValue === 'Default') {
+          this.disableFilters(this.stateText);
+        }
+        console.log(event.target.value);
+      }
+
   render() {
     const { filteredList, genreList, stateList } = this.state;
     const listItems = filteredList.map((item) =>
@@ -112,8 +177,8 @@ class Search extends Component {
                 <option value="All" disabled>State</option>
                 <option value="Default">All</option>
                 {
-                  stateList.map((genre, key) => {
-                  return <option key={key} value={genre.value}>{genre}</option>;
+                  stateList.map((state, key) => {
+                  return <option key={key} value={state.value}>{state}</option>;
                   })
                 }
               </select>
